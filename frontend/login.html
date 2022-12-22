@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Vulnerability: Reflected Cross Site Scripting (XSS) :: Damn Vulnerable Web Application (DVWA) v1.10 *Development*</title>
+
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+
+
+	</head>
+
+	<body class="home">
+		<div id="container">
+				
+        <div class="body_padded">
+            <h1>Computer Systems Security Term Project</h1>
+            <h2>Reflected Cross Site Scripting (XSS)</h2>
+
+            <div class="vulnerable_code_area">
+                <form name="XSS" action="/auth/login" method="POST" onsubmit="event.preventDefault(); showName();">
+                    <p>
+                        Search for something?
+                        <input type="text" name="name" id="name">
+                        <br> <br>
+                        <input type="submit" value="Submit">
+                        <span id="show"></span>
+                    </p>
+
+                </form>
+
+            </div>
+
+        </div>
+		</div>
+
+
+    <script>
+        function showName(e){
+            var firstName= document.getElementById("name").value;
+            document.getElementById("show").innerText = firstName
+        }
+    </script>
+	</body>
+
+    
+
+</html>
