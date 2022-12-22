@@ -4,7 +4,7 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Vulnerability: Reflected Cross Site Scripting (XSS) :: Damn Vulnerable Web Application (DVWA) v1.10 *Development*</title>
+		<title>XSS</title>
 
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 
@@ -19,13 +19,15 @@
             <h2>Reflected Cross Site Scripting (XSS)</h2>
 
             <div class="vulnerable_code_area">
-                <form name="XSS" action="/auth/login" method="POST" onsubmit="event.preventDefault(); showName();">
+                <form name="XSS" action="/search" method="GET">
                     <p>
                         Search for something?
-                        <input type="text" name="name" id="name">
+                        <input type="text" name="keyword" id="keyword">
                         <br> <br>
                         <input type="submit" value="Submit">
-                        <span id="show"></span>
+                        <br> 
+                        <div>Results for: </div>
+                        <span id="show"><%= keyword_result %></span>
                     </p>
 
                 </form>
@@ -37,10 +39,21 @@
 
 
     <script>
-        function showName(e){
-            var firstName= document.getElementById("name").value;
-            document.getElementById("show").innerText = firstName
+
+        var span = document.getElementById("show")
+        console.log("textContent is :", span.textContent) 
+        console.log("length is: ", span.textContent.length)
+        if (span.textContent.startsWith("<%= keyword_result %>") && span.textContent.length == 21){
+            console.log("inside if")
+            span.style.display = "none";
         }
+        else{
+            console.log("inside else")
+            span.innerHTML= span.textContent
+            span.style.display = "block";
+        }
+        //<h3>Please first login to proceed</h3> <form action="/login">Username:<br><input type="username" name="username"></br>Password:<br><input type="password" name="password"></br><br><input type="submit" value="Login"></br>
+
     </script>
 	</body>
 

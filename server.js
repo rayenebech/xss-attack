@@ -11,6 +11,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+app.set('views', __dirname);
 
 USER_ID = 'admin'
 PASSWORD = '1234'
@@ -19,7 +22,12 @@ app.use(express.static(path.join(__dirname, "frontend")));
 
 
 app.get('/',function(req,res) {
-    res.sendFile('/Users/rayenebech/Desktop/rayene/ytu/fall_2022/Security_of_Computer_Systems/project/frontend/login.html');
+    res.sendFile(path.join(__dirname, "frontend/login.html"));
+  });
+
+ app.get('/search',function(req,res) {
+    keyword = req.query.keyword
+    res.render(path.join(__dirname, "frontend/login.html"), {keyword_result: keyword});
   });
 
 /** 
@@ -28,7 +36,7 @@ app.get('/',function(req,res) {
 
 // compare data of the request to the data of the user
 //http://127.0.0.1:8000/auth/login?user=admin&password=1234
-app.get('/auth/login', (req, res, next) => {
+app.get('/login', (req, res, next) => {
     {  if (req.query.user === USER_ID && req.query.password === PASSWORD) {
         res.status(200).json({
             message: "Login Successful"
