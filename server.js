@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 
 
@@ -50,7 +48,8 @@ app.get('/login', (req, res, next) => {
     }}
     
 })
-  
+
+
 // Require the Routes API  
 // Create a Server and run it on the port 3000
 const server = app.listen(8000, function () {
