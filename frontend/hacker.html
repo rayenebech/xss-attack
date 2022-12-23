@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+	<head>
+        <link href='https://fonts.googleapis.com/css?family=Sarpanch:400,600' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Share+Tech' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+    </head>
+
+    <body class="hacker">
+        <div class="terminal">
+            <div class="header">
+              <h1>¿Brenda?</h1>
+            </div>
+            <span terminal=1 class="terminal-line">
+              Hello dear friend!
+            <br /><br />
+             I am sorry to tell you that all your files are now in my hands :)
+            <br /><br />
+              
+                  <br /><br /><br />
+              established connection.....
+                  <br /><br /><br />
+                  exporting all libraries......
+                  <br /><br /><br />
+                  -36,-9,-39,-27,-18,-9,141,-132,15,87,-36,-30,99,-63,-51,24,-9,15,24,-6,-66,48,-21,111,0,0,-93,9, -60,3,15,87,-105,69,-15,87,3,0,-153,111,3,12,-21,9,-3,-69,111,0,0,-120,51,-18,63,-102,87,-15,42, -24,3,-111,51,81,-27,-36,-57,72,-33,9,-60,3,15,87,-3,-6,-96,57,-15,-3,-9,102,0,-144,135,24,0,-153, 3,99,9,-105,114,-63,6,48,3,-108,120,27,-96,39,18,-120,42,-42,111,-96,39,-15,0,-12,66,6,24,-84, 123,-141,0,0,36,42,-93,15,120,21,-135,42,-72,102,-60,30,93,-141,18,0,99,-81,-18,-18,144,-144, -15,48,0,-3,63,9,-60,-27,108,-102,12,
+              <br /><br />
+              successful........
+                  <br /><br />
+                  disabling connection.......
+            </span>
+          </div>
+
+    <script>
+        // TERMINAL TYPING CODE BY STEVE DEKORTE
+            
+            function getAllElementsWithAttribute(attribute)
+            {
+            var matchingElements = [];
+            
+            var allElements = document.getElementsByTagName('span');
+            
+            for (var i = 0, n = allElements.length; i < n; i++)
+            {
+                if (allElements[i].getAttribute(attribute))
+                {
+                matchingElements.push(allElements[i]);
+                }
+            }
+            return matchingElements;
+            }
+
+            var terminalElements = getAllElementsWithAttribute("terminal");
+
+            function terminals_init()
+            {
+            var elements = terminalElements;
+            for (var i = 0; i < elements.length; i++)
+            {
+                var e = elements[i]
+                e.completeHTML = e.innerHTML
+                e.innerHTML = ""
+                e.i = 0
+            }
+
+            }
+
+            function terminals_start()
+            {
+            //terminalIntervalFunction = function(){ terminals_next() }
+            //setInterval(terminalIntervalFunction, 1000/60);
+            terminals_next()
+            }
+
+            function terminals_next()
+            {
+            var done = true
+            var elements = terminalElements;
+
+            for (var i = 0; i < elements.length && done == true; i++)
+            {
+                var e = elements[i]
+
+                e.i ++
+
+                if (e.innerHTML.length >= e.completeHTML.length)
+                {
+                e.innerHTML = e.completeHTML
+                }
+                else
+                {
+                var s =  e.completeHTML.substring(0, e.i) 
+
+                if (s.slice(-1) == " ") 
+                {
+                    if(e.innerHTML.length % 6 == 0 ) { s = s + "" } else { s = s + "|" }
+                }
+                else
+                {
+                    s = s + "|"
+                }
+
+                e.innerHTML = s
+                e.parentNode.style.display = 'none'
+                e.parentNode.style.display = 'block'
+                done = false
+                }
+            }
+
+            if (!done)
+            {
+                //window.clearInterval(terminalIntervalFunction)
+                setTimeout(terminals_next, 800/20)
+            }
+            }
+
+            terminals_init()
+
+            window.onload = function() { terminals_start() };
+    </script>
+    </body>

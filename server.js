@@ -36,12 +36,20 @@ app.get('/',function(req,res) {
 
 // compare data of the request to the data of the user
 //http://127.0.0.1:8000/auth/login?user=admin&password=1234
+
+app.get('/hacker', (req, res, next) => {
+    res.sendFile(path.join(__dirname, "frontend/hacker.html"));
+})
+
 app.get('/login', (req, res, next) => {
-    {  if (req.query.user === USER_ID && req.query.password === PASSWORD) {
-        res.status(200).json({
-            message: "Login Successful"
-        })
-        console.log("Login Successful")
+    { 
+    console.log(req.query.username)
+    console.log(req.query.password)
+    
+    if (req.query.username === USER_ID && req.query.password === PASSWORD) {
+
+        res.render(path.join(__dirname, "frontend/home.html"));
+
     } else {
         res.status(401).json({
             message: "Login Failed"
@@ -52,11 +60,11 @@ app.get('/login', (req, res, next) => {
 })
   
 // Require the Routes API  
-// Create a Server and run it on the port 3000
+// Create a Server and run it on the port 8000
 const server = app.listen(8000, function () {
     let host = server.address().address
     let port = server.address().port
-    // Starting the Server at the port 3000
+    // Starting the Server at the port 8000
     console.log("App listening at http://%s:%s", host, port)
 
 })

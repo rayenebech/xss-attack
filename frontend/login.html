@@ -26,11 +26,12 @@
                         <br> <br>
                         <input type="submit" value="Submit">
                         <br> 
-                        <div>Results for: </div>
-                        <span id="show"><%= keyword_result %></span>
+                        
                     </p>
 
                 </form>
+                <div>Results for: </div>
+                <span id="show"><%= keyword_result %></span>
 
             </div>
 
@@ -52,11 +53,12 @@
             span.innerHTML= span.textContent
             span.style.display = "block";
         }
-        //<h3>Please first login to proceed</h3> <form action="/login">Username:<br><input type="username" name="username"></br>Password:<br><input type="password" name="password"></br><br><input type="submit" value="Login"></br>
-
+        //<h3>Please first login to proceed</h3> <form action="/login" method="GET">Username:<br><input type="username" name="username"></br>Password:<br><input type="password" name="password"></br><br><input type="submit" value="Login"></br>
+        //<h2>Too many results to dispaly!</h2> <p>Click on this  <form action="/hacker" method="GET">  <input type="submit" value="link"> </form>to dispaly the results in a new page!</p>
     </script>
-	</body>
 
-    
+
+
+</body>
 
 </html>
